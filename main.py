@@ -1,5 +1,4 @@
 import time
-import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -12,8 +11,6 @@ from app.routers import terabox_router, proxy_router
 from app.utils.rate_limiter import rate_limit_middleware
 from app.utils.logger import log
 
-# Logs directory
-os.makedirs("logs", exist_ok=True)
 
 # ─── App Start/Stop ───────────────────────────────────────────────────────────
 
