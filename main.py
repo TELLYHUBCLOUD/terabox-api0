@@ -24,8 +24,11 @@ START_TIME = time.time()
 async def lifespan(app: FastAPI):
     """Startup aur shutdown events"""
     log.info(f"🚀 {settings.APP_NAME} v{settings.APP_VERSION} starting...")
-    await proxy_pool.start()
-    log.info("✅ All systems go!")
+    # Vercel serverless pe background tasks nahi chalte
+    # Proxy pool lazy-load hoga pehli request pe
+    import asyncio
+    asyncio.create_task(proxy_pool.start())
+    log.info("✅ Startup done!")
     yield
     log.info("🛑 Shutting down...")
     await proxy_pool.stop()
